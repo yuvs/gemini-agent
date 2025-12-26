@@ -15,7 +15,17 @@ def main():
     response = client.models.generate_content(
         model="gemini-2.5-flash",
         contents=content)
+    
 
+    print(f"User prompt: {content}")
+
+    if response.usage_metadata is not None:
+        print(f"Prompt tokens: {response.usage_metadata.prompt_token_count}")
+        print(f"Response tokens: {response.usage_metadata.candidates_token_count}")
+    else:
+        raise ValueError("Response usage metadata is None.")
+    
+    print("Response:")
     print(response.text)
 
 
